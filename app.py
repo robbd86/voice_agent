@@ -32,7 +32,9 @@ async def time_endpoint(payload: dict):
 
 @app.post("/search")
 async def search_endpoint(payload: dict):
+    print("🔍 Incoming /search payload:", payload)
     api_key = payload.get("api_key")
     validate_api_key(api_key)
     query = payload.get("query")
     return search_wikipedia(query)
+
