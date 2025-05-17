@@ -22,16 +22,16 @@ def validate_api_key(key: str):
 
 @app.post("/weather")
 async def weather_endpoint(payload: dict):
-    api_key = payload.get("api_key")
-    validate_api_key(api_key)
+    x_api_key = payload.get("api_key")
+    validate_api_key(x_api_key)
     location = payload.get("location")
     return get_weather(location)
 
 
 @app.post("/time")
 async def time_endpoint(payload: dict):
-    api_key = payload.get("api_key")
-    validate_api_key(api_key)
+    x_api_key = payload.get("api_key")
+    validate_api_key(x_api_key)
     location = payload.get("location")
     return get_time(location)
 
