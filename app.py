@@ -15,19 +15,24 @@ def validate_api_key(key: str):
         raise HTTPException(status_code=403, detail="Invalid API Key")
 
 @app.post("/weather")
-async def weather_endpoint(payload: dict, x_api_key: str = Header(...)):
-    validate_api_key(x_api_key)
+async def weather_endpoint(payload: dict):
+    api_key = payload.get("api_key")
+    validate_api_key(api_key)
     location = payload.get("location")
     return get_weather(location)
 
+
 @app.post("/time")
-async def time_endpoint(payload: dict, x_api_key: str = Header(...)):
-    validate_api_key(x_api_key)
+async def time_endpoint(payload: dict):
+    api_key = payload.get("api_key")
+    validate_api_key(api_key)
     location = payload.get("location")
     return get_time(location)
 
+
 @app.post("/search")
-async def search_endpoint(payload: dict, x_api_key: str = Header(...)):
-    validate_api_key(x_api_key)
+async def search_endpoint(payload: dict):
+    api_key = payload.get("api_key")
+    validate_api_key(api_key)
     query = payload.get("query")
     return search_wikipedia(query)
