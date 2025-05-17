@@ -10,6 +10,12 @@ load_dotenv()
 app = FastAPI()
 API_KEYS = os.getenv("ALLOWED_API_KEYS", "").split(",")
 
+@app.middleware("http")
+async def log_all_requests(request, call_next):
+    print(f"\U0001F4E5 Middleware Log: {request.method} {request.url}")
+    response = await call_next(request)
+    return response
+
 def validate_api_key(key: str):
     if key not in API_KEYS:
         raise HTTPException(status_code=403, detail="Invalid API Key")
